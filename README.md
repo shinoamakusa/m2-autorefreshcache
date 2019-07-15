@@ -4,7 +4,7 @@ Module to refresh Magento cache on cron runs
 
 ## Requirements
 - Magento 2.x.x
-- Hapex Core module
+- [Hapex Core module](https://github.com/shinoamakusa/m2-core)
 
 ## Installation
 - Upload files to `app/code/Hapex/AdminEmailNotifications`
