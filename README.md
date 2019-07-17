@@ -7,7 +7,7 @@ Module to refresh Magento cache on cron runs
 - [Hapex Core module](https://github.com/shinoamakusa/m2-core)
 
 ## Installation
-- Upload files to `app/code/Hapex/AdminEmailNotifications`
+- Upload files to `app/code/Hapex/AutoRefreshCache`
 - Run `php bin/magento setup:upgrade` in CLI
 - Run `php bin/magento setup:static-content:deploy -f` in CLI
 - Run `php bin/magento cache:flush` in CLI
