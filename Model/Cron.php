@@ -19,20 +19,21 @@ class Cron
     { 
         if ($this->helperData->isEnabled())
         {
+            $this->helperData->log("");
             $this->helperData->log("--- Starting Magento Cache Cleaning ---");
             try
             {
                 $cache_types = array('config','layout','block_html','collections','reflection','db_ddl','eav','config_integration','config_integration_api','full_page','translate','config_webservice'); 
                 foreach ($cache_types as $type) { 
                     $this->_cacheTypeList->cleanType($type);
-                    $this->helperData->log("Adding cache type $type to the cleaning list");
+                    $this->helperData->log("---- Adding cache type $type to the cleaning list ----");
                 } 
                 
-                $this->helperData->log("Processing the cache cleanup list");
+                $this->helperData->log("---- Processing the cache cleanup list ----");
                 foreach ($this->_cacheFrontendPool as $cache_clean_flush) { 
                     $cache_clean_flush->getBackend()->clean(); 
                 }
-                $this->helperData->log("Cache cleanup list processed");
+                $this->helperData->log("---- Cache cleanup list processed ----");
             }
             catch (\Exception $e)
             {
