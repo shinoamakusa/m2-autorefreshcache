@@ -19,6 +19,16 @@ class Data extends DataHelper
         return $this->getConfigFlag('hapex_autorefreshcache/general/enable');
     }
     
+    public function isCacheCleanEnabled()
+    {
+        return $this->getConfigFlag('hapex_autorefreshcache/options/clean_enable');
+    }
+    
+    public function isCacheFlushEnabled()
+    {
+        return $this->getConfigFlag('hapex_autorefreshcache/options/flush_enable');
+    }
+    
     public function log($message)
     {
         $this->printLog("hapex_cache_refresh", $message);
