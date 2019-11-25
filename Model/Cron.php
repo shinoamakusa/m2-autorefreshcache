@@ -7,9 +7,11 @@ use Magento\Framework\App\Cache\TypeListInterface as CacheTypeListInterface;
 class Cron 
 { 
     protected $helperData;
+    protected $context;
     
     public function __construct(\Magento\Framework\Model\Context $context, \Hapex\AutoRefreshCache\Helper\Data $helperData, \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList,\Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool) 
     { 
+        $this->context = $context;
         $this->_cacheTypeList = $cacheTypeList; 
         $this->_cacheFrontendPool = $cacheFrontendPool;
         $this->helperData = $helperData;
