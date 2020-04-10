@@ -39,6 +39,7 @@ class Cacherefresh
                                 $this->_cacheTypeList->cleanType($type);
                                 $this->helperData->log("-- Cleaned cache type '$type'");
                             }
+                            $this->helperData->log("- Cleaned the cache");
                             break;
 
                         default:
