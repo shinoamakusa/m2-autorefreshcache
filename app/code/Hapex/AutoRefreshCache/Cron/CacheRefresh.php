@@ -6,7 +6,7 @@ use Magento\Backend\App\Action;
 use Magento\Framework\App\Cache\Manager as CacheManager;
 use Magento\Framework\App\Cache\TypeListInterface as CacheTypeListInterface;
 
-class Cacherefresh
+class CacheRefresh
 {
     protected $helperData;
     protected $context;
