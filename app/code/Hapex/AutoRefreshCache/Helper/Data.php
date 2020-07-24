@@ -30,6 +30,6 @@ class Data extends DataHelper
 
 	public function log($message)
 	{
-		$this->printLog("hapex_cache_refresh", $message);
+		$this->helperLog->printLog("hapex_cache_refresh", $message);
 	}
 }
