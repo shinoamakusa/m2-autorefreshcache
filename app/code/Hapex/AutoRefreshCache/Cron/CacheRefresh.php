@@ -2,9 +2,6 @@
 namespace Hapex\AutoRefreshCache\Cron;
 
 use Magento\Backend\App\Action\Context;
-use Magento\Backend\App\Action;
-use Magento\Framework\App\Cache\Manager as CacheManager;
-use Magento\Framework\App\Cache\TypeListInterface as CacheTypeListInterface;
 
 class CacheRefresh
 {
@@ -47,18 +44,18 @@ class CacheRefresh
             $this->helperData->log("- Found $total cache types");
 
             switch ($this->helperData->isCacheCleanEnabled()) {
-              case true:
-              $this->helperData->log("- Cleaning the cache");
-              foreach ($cache_types as $type) {
-                  $this->_cacheTypeList->cleanType($type);
-                  $this->helperData->log("-- Cleaned cache type '$type'");
-              }
-              $this->helperData->log("- Cleaned the cache");
-              break;
+                case true:
+                    $this->helperData->log("- Cleaning the cache");
+                    foreach ($cache_types as $type) {
+                        $this->_cacheTypeList->cleanType($type);
+                        $this->helperData->log("-- Cleaned cache type '$type'");
+                    }
+                    $this->helperData->log("- Cleaned the cache");
+                    break;
 
-              default:
-              $this->helperData->log("- Cache cleaning is disabled");
-              break;
+                default:
+                    $this->helperData->log("- Cache cleaning is disabled");
+                    break;
             }
         } catch (\Exception $e) {
             $this->helperData->errorLog(__METHOD__, $e->getMessage());
@@ -69,21 +66,21 @@ class CacheRefresh
     {
         try {
             switch ($this->helperData->isCacheFlushEnabled()) {
-              case true:
-              $this->helperData->log("- Flushing the cache");
-              $count = 0;
-              foreach ($this->_cacheFrontendPool as $cache_clean_flush) {
-                  $cache_clean_flush->getBackend()->clean();
-                  $count++;
-              }
-              $count = $count != 0 ? $count : "No";
-              $this->helperData->log("- Flushed $count cache types");
-              break;
+                case true:
+                    $this->helperData->log("- Flushing the cache");
+                    $count = 0;
+                    foreach ($this->_cacheFrontendPool as $cache_clean_flush) {
+                        $cache_clean_flush->getBackend()->clean();
+                        $count++;
+                    }
+                    $count = $count != 0 ? $count : "No";
+                    $this->helperData->log("- Flushed $count cache types");
+                    break;
 
-              default:
-              $this->helperData->log("- Cache flushing is disabled");
-              break;
-      }
+                default:
+                    $this->helperData->log("- Cache flushing is disabled");
+                    break;
+            }
         } catch (\Exception $e) {
             $this->helperData->errorLog(__METHOD__, $e->getMessage());
         }
