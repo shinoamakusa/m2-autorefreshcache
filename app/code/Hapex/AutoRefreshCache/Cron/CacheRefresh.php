@@ -1,14 +1,17 @@
 <?php
 namespace Hapex\AutoRefreshCache\Cron;
 
-use Magento\Backend\App\Action\Context;
+use Hapex\AutoRefreshCache\Helper\Data as DataHelper;
+use Magento\Framework\App\Cache\Frontend\Pool;
+use Magento\Framework\App\Cache\TypeListInterface;
+use Magento\Framework\Model\Context;
 
 class CacheRefresh
 {
     protected $helperData;
     protected $context;
 
-    public function __construct(\Magento\Framework\Model\Context $context, \Hapex\AutoRefreshCache\Helper\Data $helperData, \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList, \Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool)
+    public function __construct(Context $context, DataHelper $helperData, TypeListInterface $cacheTypeList, Pool $cacheFrontendPool)
     {
         $this->context = $context;
         $this->_cacheTypeList = $cacheTypeList;
