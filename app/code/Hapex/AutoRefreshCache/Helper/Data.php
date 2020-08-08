@@ -1,4 +1,5 @@
 <?php
+
 namespace Hapex\AutoRefreshCache\Helper;
 
 use Hapex\Core\Helper\DataHelper;

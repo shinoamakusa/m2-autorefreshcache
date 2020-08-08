@@ -1,4 +1,5 @@
 <?php
+
 namespace Hapex\AutoRefreshCache\Cron;
 
 use Hapex\AutoRefreshCache\Helper\Data as DataHelper;
