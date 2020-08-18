@@ -50,10 +50,7 @@ class CacheRefresh
             switch ($this->helperData->isCacheCleanEnabled()) {
                 case true:
                     $this->helperData->log("- Cleaning the cache");
-                    foreach ($cache_types as $type) {
-                        $this->_cacheTypeList->cleanType($type);
-                        $this->helperData->log("-- Cleaned cache type '$type'");
-                    }
+                    $this->cleanCacheTypes($cache_types);
                     $this->helperData->log("- Cleaned the cache");
                     break;
 
@@ -66,17 +63,21 @@ class CacheRefresh
         }
     }
 
+    private function cleanCacheTypes($cache_types = [])
+    {
+        foreach ($cache_types as $type) {
+            $this->_cacheTypeList->cleanType($type);
+            $this->helperData->log("-- Cleaned cache type '$type'");
+        }
+    }
+
     private function doCacheFlush()
     {
         try {
             switch ($this->helperData->isCacheFlushEnabled()) {
                 case true:
                     $this->helperData->log("- Flushing the cache");
-                    $count = 0;
-                    foreach ($this->_cacheFrontendPool as $cache_clean_flush) {
-                        $cache_clean_flush->getBackend()->clean();
-                        $count++;
-                    }
+                    $count = $this->flushCache();
                     $count = $count != 0 ? $count : "No";
                     $this->helperData->log("- Flushed $count cache types");
                     break;
@@ -88,5 +89,15 @@ class CacheRefresh
         } catch (\Exception $e) {
             $this->helperData->errorLog(__METHOD__, $e->getMessage());
         }
+    }
+
+    private function flushCache()
+    {
+        $count = 0;
+        foreach ($this->_cacheFrontendPool as $cache_clean_flush) {
+            $cache_clean_flush->getBackend()->clean();
+            $count++;
+        }
+        return $count;
     }
 }
