@@ -1,23 +1,20 @@
 <?php
 
 namespace Hapex\AutoRefreshCache\Cron;
-
-use Hapex\AutoRefreshCache\Helper\Data as DataHelper;
+use Hapex\Core\Cron\BaseCron;
 use Magento\Framework\App\Cache\Frontend\Pool;
 use Magento\Framework\App\Cache\TypeListInterface;
-use Magento\Framework\Model\Context;
+use Hapex\AutoRefreshCache\Helper\Data as DataHelper;
+use Hapex\Core\Helper\LogHelper;
 
-class CacheRefresh
+class CacheRefresh extends BaseCron
 {
-    protected $helperData;
-    protected $context;
 
-    public function __construct(Context $context, DataHelper $helperData, TypeListInterface $cacheTypeList, Pool $cacheFrontendPool)
+    public function __construct(DataHelper $helperData, LogHelper $helperLog, TypeListInterface $cacheTypeList, Pool $cacheFrontendPool)
     {
-        $this->context = $context;
+        parent::__construct($helperData, $helperLog);
         $this->_cacheTypeList = $cacheTypeList;
         $this->_cacheFrontendPool = $cacheFrontendPool;
-        $this->helperData = $helperData;
     }
 
     public function cleanCache()
@@ -59,7 +56,7 @@ class CacheRefresh
                     break;
             }
         } catch (\Exception $e) {
-            $this->helperData->errorLog(__METHOD__, $e->getMessage());
+            $this->helperLog->errorLog(__METHOD__, $e->getMessage());
         }
     }
 
@@ -87,7 +84,7 @@ class CacheRefresh
                     break;
             }
         } catch (\Exception $e) {
-            $this->helperData->errorLog(__METHOD__, $e->getMessage());
+            $this->helperLog->errorLog(__METHOD__, $e->getMessage());
         }
     }
 
