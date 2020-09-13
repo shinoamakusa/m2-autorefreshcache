@@ -1,6 +1,7 @@
 <?php
 
 namespace Hapex\AutoRefreshCache\Cron;
+
 use Hapex\Core\Cron\BaseCron;
 use Magento\Framework\App\Cache\Frontend\Pool;
 use Magento\Framework\App\Cache\TypeListInterface;
@@ -35,7 +36,7 @@ class CacheRefresh extends BaseCron
         return $this;
     }
 
-    private function doCacheClean()
+    protected function doCacheClean()
     {
         try {
             //$cache_types = array('config','layout','block_html','collections','reflection','db_ddl','eav','config_integration','config_integration_api','full_page','translate','config_webservice');
@@ -60,15 +61,15 @@ class CacheRefresh extends BaseCron
         }
     }
 
-    private function cleanCacheTypes($cache_types = [])
+    protected function cleanCacheTypes($cache_types = [])
     {
-        foreach ($cache_types as $type) {
+        array_walk($cache_types, function ($type) {
             $this->_cacheTypeList->cleanType($type);
             $this->helperData->log("-- Cleaned cache type '$type'");
-        }
+        });
     }
 
-    private function doCacheFlush()
+    protected function doCacheFlush()
     {
         try {
             switch ($this->helperData->isCacheFlushEnabled()) {
@@ -88,13 +89,14 @@ class CacheRefresh extends BaseCron
         }
     }
 
-    private function flushCache()
+    protected function flushCache()
     {
         $count = 0;
-        foreach ($this->_cacheFrontendPool as $cache_clean_flush) {
-            $cache_clean_flush->getBackend()->clean();
+        iterator_apply($this->_cacheFrontendPool, function ($pool) use (&$count) {
+            $pool->current()->getBackend()->clean();
             $count++;
-        }
+            return true;
+        }, array($this->_cacheFrontendPool));
         return $count;
     }
 }
