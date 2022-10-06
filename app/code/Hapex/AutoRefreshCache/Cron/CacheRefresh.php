@@ -56,7 +56,7 @@ class CacheRefresh extends BaseCron
                     $this->helperData->log("- Cache cleaning is disabled");
                     break;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->helperLog->errorLog(__METHOD__, $e->getMessage());
         }
     }
@@ -84,7 +84,7 @@ class CacheRefresh extends BaseCron
                     $this->helperData->log("- Cache flushing is disabled");
                     break;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->helperLog->errorLog(__METHOD__, $e->getMessage());
         }
     }
