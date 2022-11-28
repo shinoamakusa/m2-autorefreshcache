@@ -1,5 +1,5 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
-    <group id="default">
+    <group id="hapex">
         <job name="hapex_cache_refresh" instance="Hapex\AutoRefreshCache\Cron\CacheRefresh" method="cleanCache">
             <config_path>hapex_autorefreshcache/options/cron_schedule</config_path>
         </job>
