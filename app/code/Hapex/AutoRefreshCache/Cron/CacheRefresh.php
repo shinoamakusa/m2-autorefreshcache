@@ -10,6 +10,8 @@ use Hapex\Core\Helper\LogHelper;
 
 class CacheRefresh extends BaseCron
 {
+    protected $_cacheTypeList;
+    protected $_cacheFrontendPool;
 
     public function __construct(DataHelper $helperData, LogHelper $helperLog, TypeListInterface $cacheTypeList, Pool $cacheFrontendPool)
     {
@@ -20,7 +22,7 @@ class CacheRefresh extends BaseCron
 
     public function cleanCache()
     {
-        switch ($this->helperData->isEnabled()) {
+        switch (!$this->isMaintenance && $this->helperData->isEnabled()) {
             case true:
                 $this->helperData->log("");
                 $this->helperData->log("Starting Auto Cache Refresh");
