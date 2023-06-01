@@ -59,7 +59,7 @@ class CacheRefresh extends BaseCron
                     break;
             }
         } catch (\Throwable $e) {
-            $this->helperLog->errorLog(__METHOD__, $e->getMessage());
+            $this->helperLog->errorLog(__METHOD__, $this->helperLog->getExceptionTrace($e));
         }
     }
 
@@ -87,7 +87,7 @@ class CacheRefresh extends BaseCron
                     break;
             }
         } catch (\Throwable $e) {
-            $this->helperLog->errorLog(__METHOD__, $e->getMessage());
+            $this->helperLog->errorLog(__METHOD__, $this->helperLog->getExceptionTrace($e));
         }
     }
 
